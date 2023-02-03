@@ -1,4 +1,3 @@
-import appRoot from 'app-root-path';
 import CFClient from '../common/CFClient';
 import { toDateString } from '../common/DateUtils';
 import * as urls from './Urls';
@@ -15,14 +14,6 @@ import {
 import Running from './workouts/Running';
 import path from 'path';
 import fs from 'fs';
-
-let config: GCCredentials | undefined = undefined;
-
-try {
-    config = appRoot.require('/garmin.config.json');
-} catch (e) {
-    // Do nothing
-}
 
 export type EventCallback<T> = (data: T) => void;
 
@@ -50,7 +41,7 @@ export default class GarminConnect {
     private credentials: GCCredentials;
     private listeners: Listeners;
 
-    constructor(credentials: GCCredentials | undefined = config) {
+    constructor(credentials: GCCredentials) {
         const headers = {
             origin: urls.GARMIN_SSO_ORIGIN,
             nk: 'NT'
